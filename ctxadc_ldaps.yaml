@@ -11,45 +11,45 @@
  #   rabbitq_user_sensu: "sensu"
 
 # ldaps service
+  Tasks:
+    - name: Setup ldaps service group
+      delegate_to: localhost
+      citrix_adc_servicegroup:
+        nsip: 192.168.24.80
+        nitro_user: nsroot
+        nitro_pass: nsroottt
 
-  - name: Setup ldaps service group
-    delegate_to: localhost
-    citrix_adc_servicegroup:
-      nsip: 192.168.24.80
-      nitro_user: nsroot
-      nitro_pass: nsroottt
+        state: present
 
-      state: present
+        servicegroupname: svcgrp_ldaps_636_ansible
+        servicetype: TCP
+        servicemembers:
+            mode: exact
+            attributes:
+              - ip: 192.168.24.50
+                port: 636
 
-      servicegroupname: svcgrp_ldaps_636_ansible
-      servicetype: TCP
-      servicemembers:
-          mode: exact
-          attributes:
-            - ip: 192.168.24.50
-              port: 636
+        monitor_bindings:
+            mode: exact
+            attributes:
+              - monitor_name: tcp
 
-      monitor_bindings:
-          mode: exact
-          attributes:
-            - monitor_name: tcp
+    # Citrix ADC ldaps service
 
-  # Citrix ADC ldaps service
+    - name: Create vserver
+      delegate_to: localhost
+      citrix_adc_lb_vserver:
+        nsip: 192.168.24.80
+        nitro_user: nsroot
+        nitro_pass: nsroottt
+        validate_certs: no
 
-  - name: Create vserver
-    delegate_to: localhost
-    citrix_adc_lb_vserver:
-      nsip: 192.168.24.80
-      nitro_user: nsroot
-      nitro_pass: nsroottt
-      validate_certs: no
+        state: present
 
-      state: present
-
-      name: vsrv_ldaps_636_ansible
-      servicetype: TCP
-      timeout: 12
-      ipv46: 192.168.24.156
-      port: 636
-      servicegroupbindings:
-          - servicegroupname: svcgrp_ldaps_636_ansible
+        name: vsrv_ldaps_636_ansible
+        servicetype: TCP
+        timeout: 12
+        ipv46: 192.168.24.156
+        port: 636
+        servicegroupbindings:
+            - servicegroupname: svcgrp_ldaps_636_ansible

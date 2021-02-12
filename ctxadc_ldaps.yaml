@@ -1,4 +1,14 @@
 - hosts: citrix_adc
+  vars:
+    nsip: 192.168.24.80
+    nitro_user: nsroot
+    nitro_pass: nsroottt
+    ldap_svc1_ip: 192.168.24.50
+    ldapvs_ip: 192.168.24.156
+    ldaps_basedn: dc=trickyjoe,dc=local
+    ldaps_binddn: svc.netscaler@trickyjoe.local
+    ldaps_bindpass: password
+
   gather_facts: no
   collections:
     - citrix.adc

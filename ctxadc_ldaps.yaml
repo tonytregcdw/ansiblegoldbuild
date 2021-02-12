@@ -8,9 +8,12 @@
     - name: Setup ldaps service group
       delegate_to: localhost
       citrix_adc_servicegroup:
-        nsip: 192.168.24.80
-        nitro_user: nsroot
-        nitro_pass: nsroottt
+#        nsip: 192.168.24.80
+#        nitro_user: nsroot
+#        nitro_pass: nsroottt
+        nsip: "{{ nsip }}"
+        nitro_user: "{{ nitro_user }}"
+        nitro_pass: "{{ nitro_pass }}"
         validate_certs: no
 
         state: present
@@ -20,7 +23,7 @@
         servicemembers:
             mode: exact
             attributes:
-              - ip: 192.168.24.50
+              - ip: "{{ ldap_svc1_ip }}"
                 port: 636
 
         monitor_bindings:
@@ -33,9 +36,12 @@
     - name: Create vserver
       delegate_to: localhost
       citrix_adc_lb_vserver:
-        nsip: 192.168.24.80
-        nitro_user: nsroot
-        nitro_pass: nsroottt
+#        nsip: 192.168.24.80
+#        nitro_user: nsroot
+#        nitro_pass: nsroottt
+        nsip: "{{ nsip }}"
+        nitro_user: "{{ nitro_user }}"
+        nitro_pass: "{{ nitro_pass }}"
         validate_certs: no
 
         state: present
@@ -43,7 +49,7 @@
         name: vsrv_ldaps_636_ansible
         servicetype: TCP
         timeout: 12
-        ipv46: 192.168.24.156
+        ipv46: "{{ ldapvs_ip }}"
         port: 636
         servicegroupbindings:
             - servicegroupname: svcgrp_ldaps_636_ansible

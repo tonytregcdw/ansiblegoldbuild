@@ -11,7 +11,7 @@
  #   rabbitq_user_sensu: "sensu"
 
 # ldaps service
-  Tasks:
+  tasks:
     - name: Setup ldaps service group
       delegate_to: localhost
       citrix_adc_servicegroup:

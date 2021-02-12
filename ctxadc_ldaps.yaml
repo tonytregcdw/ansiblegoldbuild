@@ -11,6 +11,7 @@
         nsip: 192.168.24.80
         nitro_user: nsroot
         nitro_pass: nsroottt
+        validate_certs: no
 
         state: present
 

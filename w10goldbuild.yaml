@@ -20,7 +20,7 @@
   - name: Run a powershell command
     win_shell: |
       New-Item -Path C:\temp\ttester -ItemType Directory
-      write-host 'hello mate' >> c:\temp\ttester\mate.txt
+      write-host hello-mate >> c:\temp\ttester\mate.txt
 
 #  - name: uninstall packages
 #    win_chocolatey:

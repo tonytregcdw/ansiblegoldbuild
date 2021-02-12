@@ -1,0 +1,43 @@
+- hosts: wintel
+  gather_facts: false
+  tasks:
+
+  - name: Stop Chocolatey on the first package failure
+    win_chocolatey_feature:
+      name: stopOnFirstPackageFailure
+      state: disabled
+
+#  - name: Add Azure PowerShell Module
+#    win_psmodule:
+#      name: AZ
+#      state: present
+
+  - name: Run a command under cmd
+    win_shell: echo ansible woz here >> C:\temp\tt.txt && echo still here >> c:\temp\tt.txt
+    args:
+      executable: cmd.exe
+
+  - name: Run a powershell command
+    win_shell: |
+      New-Item -Path C:\temp\ttester -ItemType Directory
+      write-host 'hello mate' >> c:\temp\ttester\mate.txt
+
+#  - name: uninstall packages
+#    win_chocolatey:
+#      name:
+#        - vscode
+#        - 7zip
+#        - notepadplusplus
+#        - putty
+#        - windirstat
+#      state: absent
+
+#  - name: Install packages
+#    win_chocolatey:
+#      name:
+#        - vscode
+#        - 7zip
+#        - notepadplusplus
+#        - putty
+#        - windirstat
+#      state: present

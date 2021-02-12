@@ -1,14 +1,7 @@
-- hosts: localhost
-  connection: local
+- hosts: citrix_adc
   gather_facts: no
-
- # vars:
-
- #   rabbitmq_auth_user: "guest"
- #   rabbitmq_auth_password: "guest"
- #   rabbimq_rest_api_url: "http://127.0.0.1:15672/api"
- #   rabbitq_vhost_sensu: "sensu"
- #   rabbitq_user_sensu: "sensu"
+  collections:
+    - citrix.adc
 
 # ldaps service
   tasks:

@@ -1,0 +1,14 @@
+- hosts: winserver
+  gather_facts: false
+  tasks:
+
+  - name: Run a command under cmd
+    win_shell: echo ansible woz here >> C:\temp\tt.txt && echo still here >> c:\temp\tt.txt
+    args:
+      executable: cmd.exe
+
+  - name: Run a powershell command
+    win_shell: |
+      New-Item -Path C:\temp\ttester -ItemType Directory
+      write-host hello-mate >> c:\temp\ttester\mate.txt
+      

@@ -9,7 +9,7 @@
     ldapvs_ip: 192.168.24.156
     ldaps_basedn: dc=trickyjoe,dc=local
     ldaps_binddn: svc.netscaler@trickyjoe.local
-    ldaps_bindpass: password
+    ldaps_bindpass: Netsc@ler2020
 
   gather_facts: no
   collections:

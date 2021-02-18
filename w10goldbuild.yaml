@@ -24,3 +24,8 @@
       arguments: /S
       state: present
      
+  - name: citrix workspace
+    win_package:
+      path: c:\temp\citrixworkspaceapp.exe
+      arguments: /silent /noreboot /autoupdatecheck=disabled /enableCEIP=False STORE0=https://storefront.lab.local/store;On;Store
+      

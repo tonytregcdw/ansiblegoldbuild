@@ -15,7 +15,7 @@
   - name: Run multiple powershell commands
     win_shell: |
       New-Item -Path $env:temp\ansibletest -ItemType Directory
-      write-host hello-again >> $env:temp\ttester\ansibletest.txt
+      write-host hello-again >> $env:temp\ansibletest\ansibletest.txt
 
   - name: Install notepad-plus-plus
     win_package:

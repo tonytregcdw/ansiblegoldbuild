@@ -1,9 +1,8 @@
 # ansiblegoldbuild
-#Prep steps:
 
-# get WSL up and running on win10 with ubuntu.
+## get WSL up and running on win10 with ubuntu.
 
-# install the ansible module - this should also install pip, python3.
+## install the ansible module - this should also install pip, python3.
 sudo apt update
 sudo apt install ansible
 

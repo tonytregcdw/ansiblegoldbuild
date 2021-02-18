@@ -2,42 +2,25 @@
   gather_facts: false
   tasks:
 
-  - name: Stop Chocolatey on the first package failure
-    win_chocolatey_feature:
-      name: stopOnFirstPackageFailure
-      state: disabled
-
 #  - name: Add Azure PowerShell Module
 #    win_psmodule:
 #      name: AZ
 #      state: present
 
   - name: Run a command under cmd
-    win_shell: echo ansible woz here >> C:\temp\tt.txt && echo still here >> c:\temp\tt.txt
+    win_shell: echo this is a test >> %temp%\ansibletest.txt && echo another test >> %temp%\ansibletest.txt
     args:
       executable: cmd.exe
 
-  - name: Run a powershell command
+  - name: Run multiple powershell commands
     win_shell: |
-      New-Item -Path C:\temp\ttester -ItemType Directory
-      write-host hello-mate >> c:\temp\ttester\mate.txt
+      New-Item -Path $env:temp\ansibletest -ItemType Directory
+      write-host hello-again >> $env:temp\ttester\ansibletest.txt
 
-#  - name: uninstall packages
-#    win_chocolatey:
-#      name:
-#        - vscode
-#        - 7zip
-#        - notepadplusplus
-#        - putty
-#        - windirstat
-#      state: absent
-
-#  - name: Install packages
-#    win_chocolatey:
-#      name:
-#        - vscode
-#        - 7zip
-#        - notepadplusplus
-#        - putty
-#        - windirstat
-#      state: present
+ - name: Install notepad++
+   win_package:
+     path: https://notepad-plus-plus.org/repository/7.x/7.0/npp.7.Installer.x64.exe
+     product_id: Notepad++
+     arguments: /S
+     state: present
+     

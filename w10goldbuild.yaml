@@ -27,6 +27,7 @@
   - name: citrix workspace
     win_package:
       path: c:\temp\citrixworkspaceapp.exe
-      product_id: CitrixWorkspace
+      product_id: '{08D2476F-32F2-48AE-804C-2C863B7E70CD}'
       arguments: /silent /noreboot /autoupdatecheck=disabled /enableCEIP=False STORE0=https://storefront.lab.local/store;On;Store
+      state: present
       

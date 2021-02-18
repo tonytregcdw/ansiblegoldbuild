@@ -4,6 +4,7 @@
 
 ## install the ansible module - this should also install pip, python3.
 sudo apt update
+
 sudo apt install ansible
 
 ## check pip,python3,winrm installed.
@@ -41,4 +42,6 @@ Enable-WSManCredSSP -Role Server -Force
 pip install requests-credssp
 
 ## download and run the playbooks.
+
+git pull https://github.com/tonytregcdw/ansiblegoldbuild
 

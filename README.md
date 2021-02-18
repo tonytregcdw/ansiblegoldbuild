@@ -1,5 +1,7 @@
 # ansiblegoldbuild
 
+# Configure ansible management instance
+
 ## get WSL up and running on win10 with ubuntu.
 
 ## install the ansible module - this should also install pip, python3.
@@ -19,6 +21,11 @@ ansible-galaxy collection install citrix-adc-1.1.0.tar.gz
 
 pip3 install nitro-python-1.0_kamet.tar.gz
 
+## Configure ansible for credssp support
+
+pip install requests-credssp
+
+# Configure ansible managed endpoints
 
 ## set up the netscaler ansible hosts
 
@@ -36,10 +43,6 @@ powershell.exe -ExecutionPolicy ByPass -File $file
 ### For Domain members enable credssp for winrm connections using AD accounts
 
 Enable-WSManCredSSP -Role Server -Force
-
-## Configure ansible for credssp support
-
-pip install requests-credssp
 
 ## download and run the playbooks.
 

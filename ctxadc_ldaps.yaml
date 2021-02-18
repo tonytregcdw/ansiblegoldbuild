@@ -1,3 +1,5 @@
+# module ref: https://github.com/citrix/citrix-adc-ansible-modules
+
 - hosts: citrix_adc
   vars:
     nsip: 192.168.24.80
@@ -8,6 +10,7 @@
     ldaps_basedn: dc=trickyjoe,dc=local
     ldaps_binddn: svc.netscaler@trickyjoe.local
     ldaps_bindpass: password
+    secure: yes
 
   gather_facts: no
   collections:

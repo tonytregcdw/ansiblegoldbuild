@@ -10,7 +10,6 @@
     ldaps_basedn: dc=trickyjoe,dc=local
     ldaps_binddn: svc.netscaler@trickyjoe.local
     ldaps_bindpass: password
-    secure: yes
 
   gather_facts: no
   collections:
@@ -31,6 +30,7 @@
         basedn: "{{ ldaps_basedn }}"
         binddn: "{{ ldaps_binddn }}"
         password: "{{ ldaps_bindpass }}"
+        secure: yes
     
     - name: Setup ldaps service group
       delegate_to: localhost

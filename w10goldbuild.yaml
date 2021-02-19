@@ -7,15 +7,16 @@
 #      name: AZ
 #      state: present
 
-  - name: Run a command under cmd
-    win_shell: echo this is a test >> %temp%\ansibletest.txt && echo another test >> %temp%\ansibletest.txt
-    args:
-      executable: cmd.exe
-
   - name: Run multiple powershell commands
     win_shell: |
-      New-Item -Path $env:temp\ansibletest -ItemType Directory
-      write-host hello-again >> $env:temp\ansibletest\ansibletest.txt
+      New-Item -Path c:\temp -ItemType Directory
+      New-Item -Path c:\temp\ansibletest -ItemType Directory
+      write-host hello-again >> c:\temp\ansibletest.txt
+
+  - name: Run a command under cmd
+    win_shell: echo this is a test >> c:\temp\ansibletest.txt && echo another test >> c:\temp\ansibletest.txt
+    args:
+      executable: cmd.exe
 
   - name: Install notepad-plus-plus
     win_package:

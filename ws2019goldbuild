@@ -1,4 +1,4 @@
-- hosts: winserver
+- hosts: azws2019
   gather_facts: false
   tasks:
 

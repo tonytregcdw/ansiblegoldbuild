@@ -44,6 +44,10 @@ powershell.exe -ExecutionPolicy ByPass -File $file
 
 Enable-WSManCredSSP -Role Server -Force
 
+### Test ansible winrm access
+
+ansible -p win_ping target
+
 ## download and run the playbooks.
 
 git pull https://github.com/tonytregcdw/ansiblegoldbuild

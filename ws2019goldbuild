@@ -12,3 +12,29 @@
       New-Item -Path C:\temp\ttester -ItemType Directory
       write-host hello-mate >> c:\temp\ttester\mate.txt
       
+  - name: Install notepad-plus-plus
+    win_package:
+      path: https://notepad-plus-plus.org/repository/7.x/7.0/npp.7.Installer.x64.exe
+      product_id: Notepad++
+      arguments: /S
+      state: present
+      
+  - name: reg key
+    win_regedit:
+      path: HKLM:\Software\TTLAB
+      name: hello
+      data: world
+      
+  - name: dword reg key
+    win_regedit:
+      path: HKLM:\Software\TTLAB
+      name: hellod
+      data: 1
+      type: dword
+      
+  - name: Enable RDS win feature  
+    win_feature:
+      name: RDS-RD-Server
+      state: present
+      include_management_tools: False
+  

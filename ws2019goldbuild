@@ -1,5 +1,8 @@
 - hosts: azws2019
   gather_facts: false
+  var_files:
+    - variables.yaml
+    
   tasks:
 
   - name: Run a command under cmd

@@ -1,6 +1,6 @@
 - hosts: azws2019
   gather_facts: false
-  var_files:
+  vars_files:
     - variables.yaml
     
   tasks:

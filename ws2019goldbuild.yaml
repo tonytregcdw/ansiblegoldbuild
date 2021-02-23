@@ -5,16 +5,17 @@
     
   tasks:
 
+  - name: Run a powershell command
+    win_shell: |
+      New-Item -Path C:\temp -ItemType Directory
+      New-Item -Path C:\temp\ansible -ItemType Directory
+      write-host hello-mate >> c:\temp\ansible\test.txt
+
   - name: Run a command under cmd
-    win_shell: echo ansible woz here >> C:\temp\tt.txt && echo still here >> c:\temp\tt.txt
+    win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
     args:
       executable: cmd.exe
 
-  - name: Run a powershell command
-    win_shell: |
-      New-Item -Path C:\temp\ttester -ItemType Directory
-      write-host hello-mate >> c:\temp\ttester\mate.txt
-      
   - name: Install notepad-plus-plus
     win_package:
       path: https://notepad-plus-plus.org/repository/7.x/7.0/npp.7.Installer.x64.exe

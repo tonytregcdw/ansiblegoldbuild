@@ -1,4 +1,4 @@
-azws2019:
+all:
   hosts:
     azws201901:
       ansible_host: 20.56.188.211

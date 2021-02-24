@@ -1,0 +1,12 @@
+azws2019:
+  hosts:
+    azws201901:
+      ansible_host: 20.56.188.211
+    azws201901:
+      ansible_host: 20.56.188.211
+  vars:
+      ansible_user: labadmin
+      ansible_password: +CkRPx3CP1wCVg*fvnj_
+      ansible_connection: winrm
+      ansible_winrm_server_cert_validation: ignore
+      

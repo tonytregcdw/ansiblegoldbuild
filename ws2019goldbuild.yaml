@@ -1,4 +1,4 @@
-- hosts: azws201901
+- hosts: azws2019
   gather_facts: false
     
   tasks:

@@ -11,3 +11,14 @@ azws2019:
       ansible_connection: winrm
       ansible_winrm_server_cert_validation: ignore
 
+azwin10:
+  hosts:
+    azwin1001:
+      ansible_host: 20.76.24.23
+    azwin1002:
+      ansible_host: 20.76.24.24
+  vars:
+      ansible_user: labadmin
+      ansible_password: +CkRPx3CP1wCVg*fvnj_
+      ansible_connection: winrm
+      ansible_winrm_server_cert_validation: ignore

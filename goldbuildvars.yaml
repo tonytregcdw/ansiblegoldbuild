@@ -1,0 +1,6 @@
+- hosts: All
+  vars:
+    adds_fqdn: trickyjoecdw.onmicrosoft.com
+    adds_admin_user: ttwinrm@trickyjoecdw.onmicrosoft.com 
+    adds_admin_pass: Ansiblem@nage
+    appinstallpath: C:\mdt\MDT-Dsan\MDT-Deployment\Applications

@@ -1,5 +1,0 @@
-- hosts: azws2019
-  vars:
-    adds_fqdn: trickyjoecdw.onmicrosoft.com
-    adds_admin_user: ttwinrm@trickyjoecdw.onmicrosoft.com 
-    adds_admin_pass: Ansiblem@nage 

@@ -3,6 +3,32 @@
     
   tasks:
 
+#  - name: join Azure AD DS domain
+#    win_domain_membership:
+#      dns_domain_name: "{{ adds_fqdn }}"
+#      domain_admin_user: "{{ adds_admin_user }}"
+#      domain_admin_password: "{{ adds_admin_pass }}"
+#      state: domain
+#    register: domain_state
+    
+#  - win_reboot:
+#    when: domain_state.reboot_required
+
+  - name: Enable RDS win feature  
+    win_feature:
+      name: RDS-RD-Server
+      state: present
+      include_management_tools: False
+
+# Install runtimes and dependencies
+
+  - name: Install Citrix VDA
+    win_package:
+      path: vda.exe
+      product_id: vda
+      arguments: /install
+      state: present
+
   - name: Run a powershell command
     win_shell: |
       New-Item -Path C:\temp -ItemType Directory
@@ -14,11 +40,11 @@
     args:
       executable: cmd.exe
 
-  - name: Install notepad-plus-plus
+  - name: Install Citrix VDA
     win_package:
-      path: https://notepad-plus-plus.org/repository/7.x/7.0/npp.7.Installer.x64.exe
-      product_id: Notepad++
-      arguments: /S
+      path: vda.exe
+      product_id: vda
+      arguments: /install
       state: present
       
   - name: reg key
@@ -34,20 +60,7 @@
       data: 1
       type: dword
       
-  - name: Enable RDS win feature  
-    win_feature:
-      name: RDS-RD-Server
-      state: present
-      include_management_tools: False
+
   
-#  - name: join Azure AD DS domain
-#    win_domain_membership:
-#      dns_domain_name: "{{ adds_fqdn }}"
-#      domain_admin_user: "{{ adds_admin_user }}"
-#      domain_admin_password: "{{ adds_admin_pass }}"
-#      state: domain
-#    register: domain_state
-    
-#  - win_reboot:
-#    when: domain_state.reboot_required
+
   

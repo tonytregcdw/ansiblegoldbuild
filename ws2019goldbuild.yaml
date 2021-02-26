@@ -8,6 +8,7 @@
 #      dns_domain_name: "{{ adds_fqdn }}"
 #      domain_admin_user: "{{ adds_admin_user }}"
 #      domain_admin_password: "{{ adds_admin_pass }}"
+#      domain_ou_path: "{{ adds_ou_path }}"
 #      state: domain
 #    register: domain_state
     
@@ -21,6 +22,30 @@
       include_management_tools: False
 
 # Install runtimes and dependencies
+
+# Install hosting platform tools
+
+  - name: Install VMware Tools
+    win_shell: {{ appinstallpath }}\VMware Tools 10.\Install-VMwareTools-x64.CMD
+    args:
+      executable: cmd.exe
+
+# OS Customisation
+      
+  - name: reg key
+    win_regedit:
+      path: HKLM:\Software\TTLAB
+      name: hello
+      data: world
+      
+  - name: dword reg key
+    win_regedit:
+      path: HKLM:\Software\TTLAB
+      name: hellod
+      data: 1
+      type: dword
+
+# Citrix components
 
   - name: Install Citrix VDA
     win_package:
@@ -46,19 +71,7 @@
       product_id: vda
       arguments: /install
       state: present
-      
-  - name: reg key
-    win_regedit:
-      path: HKLM:\Software\TTLAB
-      name: hello
-      data: world
-      
-  - name: dword reg key
-    win_regedit:
-      path: HKLM:\Software\TTLAB
-      name: hellod
-      data: 1
-      type: dword
+
       
 
   

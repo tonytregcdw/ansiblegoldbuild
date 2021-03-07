@@ -3,4 +3,6 @@
     adds_fqdn: trickyjoecdw.onmicrosoft.com
     adds_admin_user: ttwinrm@trickyjoecdw.onmicrosoft.com 
     adds_admin_pass: Ansiblem@nage
-    appinstallpath: C:\mdt\MDT-Dsan\MDT-Deployment\Applications
+    appinstall_path: \\ttsmbstorage01.file.core.windows.net\ttsmb01
+    appinstall_user: ttsmbstorage01
+    appinstall_pass: 6pkw3KR2/B064vm9jca/dbXWQHx4Ez8XOquVim3tFtSEQc7cCx45XsKVUnkgyN9884QQ2LWQ9jz80YWacxWhnw==

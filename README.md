@@ -1,5 +1,3 @@
-# ansiblegoldbuild
-
 # Configure ansible management instance
 
 ## get WSL up and running on win10 with ubuntu.
@@ -35,6 +33,6 @@ Enable-WSManCredSSP -Role Server -Force
 
 ansible -p win_ping target
 
-## download and run the playbooks.
+# download and run the playbooks.
 
 git pull https://github.com/gituser/gitrepository

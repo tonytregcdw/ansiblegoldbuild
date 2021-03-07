@@ -286,7 +286,6 @@ resource "azurerm_windows_virtual_machine" "r1-win1001-vm" {
 resource "azurerm_virtual_machine_extension" "r1-ws201901-basesetup" {
   name                 = "r1-ws201901-basesetup"
   virtual_machine_id   = azurerm_windows_virtual_machine.r1-ws201901-vm.id
-#  depends_on = [ azurerm_virtual_machine_data_disk_attachment.r1-ws201901-data ]
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
   type_handler_version = "1.9"
@@ -309,7 +308,6 @@ resource "azurerm_virtual_machine_extension" "r1-ws201901-basesetup" {
 resource "azurerm_virtual_machine_extension" "r1-win1001-basesetup" {
   name                 = "r1-win1001-basesetup"
   virtual_machine_id   = azurerm_windows_virtual_machine.r1-win1001-vm.id
-#  depends_on = [ azurerm_virtual_machine_data_disk_attachment.r1-win1001-data ]
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
   type_handler_version = "1.9"
@@ -328,8 +326,4 @@ resource "azurerm_virtual_machine_extension" "r1-win1001-basesetup" {
     }
   SETTINGS
 }
-# create ansible inventory for provisioned VMs.
-# user: 
-# pass: random_password.vmpassword.result
-# IP: azurerm_public_ip.r1-win1001-pip.id
-# IP: azurerm_public_ip.r1-ws201901-pip.id
+

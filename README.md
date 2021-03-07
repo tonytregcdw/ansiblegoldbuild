@@ -11,26 +11,13 @@ sudo apt install ansible
 
 ## check pip,python3,winrm installed.
 
-## install the citrix ADC ansible modules
-
-ansible-galaxy collection install git+https://github.com/citrix/citrix-adc-ansible-modules.git#/ansible-collections/adc
-
-ansible-galaxy collection build
-
-ansible-galaxy collection install citrix-adc-1.1.0.tar.gz
-
-pip3 install nitro-python-1.0_kamet.tar.gz
-
 ## Configure ansible for credssp support
 
 pip install requests-credssp
 
 # Configure ansible managed endpoints
 
-## set up the netscaler ansible hosts
-
 ## Set up winrm on the windows ansible hosts
-
 
 $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
 
@@ -50,5 +37,4 @@ ansible -p win_ping target
 
 ## download and run the playbooks.
 
-git pull https://github.com/tonytregcdw/ansiblegoldbuild
-
+git pull https://github.com/gituser/gitrepository

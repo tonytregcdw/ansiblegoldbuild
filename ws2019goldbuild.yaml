@@ -21,14 +21,22 @@
       state: present
       include_management_tools: False
 
+  - name: Create mapped drive with credentials that do not persist on the next logon
+    win_mapped_drive:
+      letter: M
+      path: {{ appinstall_path }}
+      state: present
+      username: '{{ appinstall_user }}'
+      password: '{{ appinstall_pass }}' 
+
 # Install runtimes and dependencies
 
 # Install hosting platform tools
 
-  - name: Install VMware Tools
-    win_shell: {{ appinstallpath }}\VMware Tools 10.\Install-VMwareTools-x64.CMD
-    args:
-      executable: cmd.exe
+#  - name: Install VMware Tools
+#    win_shell: {{ appinstallpath }}\VMware Tools 10.\Install-VMwareTools-x64.CMD
+#    args:
+#      executable: cmd.exe
 
 # OS Customisation
       
@@ -49,7 +57,7 @@
 
   - name: Install Citrix VDA
     win_package:
-      path: vda.exe
+      path: m:\applications\citrixvda\vda.exe
       product_id: vda
       arguments: /install
       state: present
@@ -73,7 +81,3 @@
       state: present
 
       
-
-  
-
-  

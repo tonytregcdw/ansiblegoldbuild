@@ -64,7 +64,7 @@
 
   - name: Install Citrix VDA
     win_package:
-      path: M:\Applications\Citrix XenDesktop 2012\XenDesktopVDASetup.exe
+      path: M:\Applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
       product_id: vda
       arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
       state: present

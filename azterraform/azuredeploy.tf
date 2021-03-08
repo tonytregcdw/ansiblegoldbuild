@@ -35,12 +35,12 @@ resource "azurerm_subnet" "region1-vnet1-snet1" {
   virtual_network_name = azurerm_virtual_network.region1-vnet1-hub1.name
   address_prefixes     = [var.region1-vnet1-snet1-range]
 }
-resource "azurerm_subnet" "AzureBastionSubnet" {
-  name                 = "AzureBastionSubnet"
-  resource_group_name  = azurerm_resource_group.rg1.name
-  virtual_network_name = azurerm_virtual_network.region1-vnet1-hub1.name
-  address_prefixes     = [var.region1-vnet1-bastion-range]
-}
+#resource "azurerm_subnet" "AzureBastionSubnet" {
+#  name                 = "AzureBastionSubnet"
+#  resource_group_name  = azurerm_resource_group.rg1.name
+#  virtual_network_name = azurerm_virtual_network.region1-vnet1-hub1.name
+#  address_prefixes     = [var.region1-vnet1-bastion-range]
+#}
 #RDP Access Rules for Lab
 #Get Client IP Address for NSG
 data "http" "clientip" {
@@ -137,18 +137,18 @@ resource "azurerm_key_vault_secret" "vmpassword" {
   depends_on = [ azurerm_key_vault.kv1 ]
 }
 #Public IP
-resource "azurerm_public_ip" "r1-bastion-pip" {
-  name                = "r1-bastion-pip"
-  resource_group_name = azurerm_resource_group.rg1.name
-  location            = var.loc1
-  allocation_method   = "Static"
-  sku = "Standard"
-
-   tags     = {
-       Environment  = var.environment_tag
-       Function = "baselabv1-activedirectory"
-   }
-}
+#resource "azurerm_public_ip" "r1-bastion-pip" {
+#  name                = "r1-bastion-pip"
+#  resource_group_name = azurerm_resource_group.rg1.name
+#  location            = var.loc1
+#  allocation_method   = "Static"
+#  sku = "Standard"
+#
+#   tags     = {
+#       Environment  = var.environment_tag
+#       Function = "baselabv1-activedirectory"
+#   }
+#}
 #Public IP
 resource "azurerm_public_ip" "r1-ws201901-pip" {
   name                = "r1-ws201901-pip"
@@ -175,17 +175,17 @@ resource "azurerm_public_ip" "r1-win1001-pip" {
    }
 }
 #Bastion access
-resource "azurerm_bastion_host" "r1-bastion-host" {
-  name                = "r1-bastion-host"
-  location            = var.loc1
-  resource_group_name = azurerm_resource_group.rg1.name
-
-  ip_configuration {
-    name                 = "r1-bastion-ipconfig"
-    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
-    public_ip_address_id = azurerm_public_ip.r1-bastion-pip.id
-  }
-}
+#resource "azurerm_bastion_host" "r1-bastion-host" {
+#  name                = "r1-bastion-host"
+#  location            = var.loc1
+#  resource_group_name = azurerm_resource_group.rg1.name
+#
+#  ip_configuration {
+#    name                 = "r1-bastion-ipconfig"
+#    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
+#    public_ip_address_id = azurerm_public_ip.r1-bastion-pip.id
+#  }
+#}
 #Create ws201901 NIC and associate the Public IP
 resource "azurerm_network_interface" "r1-ws201901-nic" {
   name                = "r1-ws201901-nic"

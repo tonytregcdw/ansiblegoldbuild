@@ -28,10 +28,10 @@
   - name: Create mapped drive with credentials that do not persist on the next logon
     win_mapped_drive:
       letter: M
-      path: {{ appinstall_path }}
+      path: "{{ appinstall_path }}"
       state: present
-      username: '{{ appinstall_user }}'
-      password: '{{ appinstall_pass }}' 
+      username: "{{ appinstall_user }}"
+      password: "{{ appinstall_pass }}"
 
 # Install runtimes and dependencies
 

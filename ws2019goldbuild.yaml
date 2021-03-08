@@ -3,6 +3,10 @@
     
   tasks:
 
+  - name: include vars
+    include_vars: goldbuildvars.yaml
+
+
 #  - name: join Azure AD DS domain
 #    win_domain_membership:
 #      dns_domain_name: "{{ adds_fqdn }}"
@@ -72,6 +76,4 @@
     win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
     args:
       executable: cmd.exe
-
-
       

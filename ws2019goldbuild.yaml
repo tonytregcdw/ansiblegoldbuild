@@ -57,9 +57,9 @@
 
   - name: Install Citrix VDA
     win_package:
-      path: m:\applications\citrixvda\vda.exe
+      path: M:\Applications\Citrix XenDesktop 2012\XenDesktopVDASetup.exe
       product_id: vda
-      arguments: /install
+      arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
       state: present
 
   - name: Run a powershell command
@@ -73,11 +73,5 @@
     args:
       executable: cmd.exe
 
-  - name: Install Citrix VDA
-    win_package:
-      path: vda.exe
-      product_id: vda
-      arguments: /install
-      state: present
 
       

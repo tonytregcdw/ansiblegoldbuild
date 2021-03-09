@@ -32,9 +32,7 @@
       state: present
       include_management_tools: False
 
-# map to the application installation path
-
-  - name: Create a mapped to application installation source folder
+  - name: Map drive to application installation source
     win_mapped_drive:
       letter: M
       path: \\WS2019ADDS01\applications

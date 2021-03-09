@@ -55,8 +55,8 @@ resource "azurerm_virtual_network_peering" "peer1" {
 }
 resource "azurerm_virtual_network_peering" "peer2" {
   name                      = "infra-vnet1-to-region1-vnet1"
-  resource_group_name       = "${data.azurerm_resource_group.TT_Infrastructure_RG.Name}"
-  virtual_network_name      = "${data.azurerm_virtual_network.TT_Infrastructure_RG-vnet.Name}"
+  resource_group_name       = "${data.azurerm_resource_group.TT_Infrastructure_RG.name}"
+  virtual_network_name      = "${data.azurerm_virtual_network.TT_Infrastructure_RG-vnet.name}"
   remote_virtual_network_id = azurerm_virtual_network.region1-vnet1-hub1.id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true

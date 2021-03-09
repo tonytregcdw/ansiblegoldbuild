@@ -23,7 +23,7 @@ resource "azurerm_virtual_network" "region1-vnet1-hub1" {
   location            = var.loc1
   resource_group_name = azurerm_resource_group.rg1.name
   address_space       = [var.region1-vnet1-address-space]
-  dns_servers         = ["10.0.4.4", "10.0.4.5", "8.8.8.8"]
+  dns_servers         = ["10.20.1.4", "8.8.8.8"]
    tags     = {
        Environment  = var.environment_tag
        Function = "baselabv1-network"

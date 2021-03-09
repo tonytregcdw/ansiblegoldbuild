@@ -14,7 +14,7 @@
     
   tasks:
 
-  - name: join Azure AD DS domain
+  - name: join AD DS domain
     win_domain_membership:
       dns_domain_name: "{{ adds_fqdn }}"
       domain_admin_user: "{{ adds_admin_user }}"

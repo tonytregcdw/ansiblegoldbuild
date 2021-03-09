@@ -1,26 +1,24 @@
 - hosts: azws2019
   gather_facts: false
   vars:
-    adds_fqdn: trickyjoecdw.onmicrosoft.com
-    adds_admin_user: ttwinrm@trickyjoecdw.onmicrosoft.com 
+    adds_fqdn: ttlab.local
+    adds_admin_user: ttwinrm@ttlab.local 
     adds_admin_pass: Ansiblem@nage
-    appinstall_path: \\ttgoldbuildstorage01.file.core.windows.net\ttsmb01
-    appinstall_user: ttgoldbuildstorage01
-    appinstall_pass: sFEbpFXepbJenY06Zxa7WKZUP68yoCvq00bmEWprBhv1eLjV8Nc1QvhLquelTKkgbnn4aUyZuEHpTOk45TmAig==
+    appinstall_path: \\ttlab.local\applications
     
   tasks:
 
-#  - name: join Azure AD DS domain
-#    win_domain_membership:
-#      dns_domain_name: "{{ adds_fqdn }}"
-#      domain_admin_user: "{{ adds_admin_user }}"
-#      domain_admin_password: "{{ adds_admin_pass }}"
-#      domain_ou_path: "{{ adds_ou_path }}"
-#      state: domain
-#    register: domain_state
+  - name: join Azure AD DS domain
+    win_domain_membership:
+      dns_domain_name: "{{ adds_fqdn }}"
+      domain_admin_user: "{{ adds_admin_user }}"
+      domain_admin_password: "{{ adds_admin_pass }}"
+      domain_ou_path: "{{ adds_ou_path }}"
+      state: domain
+    register: domain_state
     
-#  - win_reboot:
-#    when: domain_state.reboot_required
+  - win_reboot:
+    when: domain_state.reboot_required
 
   - name: Enable RDS win feature  
     win_feature:
@@ -28,15 +26,10 @@
       state: present
       include_management_tools: False
 
-  - name: Create mapped drive with credentials that do not persist on the next logon
-    win_mapped_drive:
-      letter: M
-      path: "{{ appinstall_path }}"
-      state: present
-      username: "{{ appinstall_user }}"
-      password: "{{ appinstall_pass }}"
-
 # Install runtimes and dependencies
+
+  - name: Run Visual C++ 2005 Redistributable x86
+    win_shell: cmd /c "\\ttlab.local\applications\Microsoft Visual C++ 2005 Redistributable x86\Install-VisualCRedist.CMD"
 
 # Install hosting platform tools
 
@@ -47,36 +40,36 @@
 
 # OS Customisation
       
-  - name: reg key
-    win_regedit:
-      path: HKLM:\Software\TTLAB
-      name: hello
-      data: world
+#  - name: reg key
+#    win_regedit:
+#      path: HKLM:\Software\TTLAB
+#      name: hello
+#      data: world
       
-  - name: dword reg key
-    win_regedit:
-      path: HKLM:\Software\TTLAB
-      name: hellod
-      data: 1
-      type: dword
+#  - name: dword reg key
+#    win_regedit:
+#      path: HKLM:\Software\TTLAB
+#      name: hellod
+#      data: 1
+#      type: dword
 
 # Citrix components
 
   - name: Install Citrix VDA
     win_package:
-      path: M:\Applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
+      path: \\ttlab.local\applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
       product_id: vda
       arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
       state: present
 
-  - name: Run a powershell command
-    win_shell: |
-      New-Item -Path C:\temp -ItemType Directory
-      New-Item -Path C:\temp\ansible -ItemType Directory
-      write-host hello-mate >> c:\temp\ansible\test.txt
+#  - name: Run a powershell command
+#    win_shell: |
+#      New-Item -Path C:\temp -ItemType Directory
+#      New-Item -Path C:\temp\ansible -ItemType Directory
+#      write-host hello-mate >> c:\temp\ansible\test.txt
 
-  - name: Run a command under cmd
-    win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
-    args:
-      executable: cmd.exe
+#  - name: Run a command under cmd
+#    win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
+#    args:
+#      executable: cmd.exe
       

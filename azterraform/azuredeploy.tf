@@ -4,8 +4,8 @@ data "azurerm_virtual_network" "TT_Infrastructure_RG-vnet" {
   resource_group_name  = "TT_Infrastructure_RG"
 }
 #Resource Groups
-data resource "azurerm_resource_group" "TT_Infrastructure_RG" {
-  name     = "TT_Infrastructure_RG"
+data "azurerm_resource_group" "TT_Infrastructure_RG" {
+  name                 = "TT_Infrastructure_RG"
 }
 #Resource Groups
 resource "azurerm_resource_group" "rg1" {

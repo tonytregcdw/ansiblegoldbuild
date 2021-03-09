@@ -32,6 +32,13 @@
       state: present
       include_management_tools: False
 
+# map to the application installation path
+
+  - name: Create a mapped to application installation source folder
+    win_mapped_drive:
+      letter: M
+      path: \\WS2019ADDS01\applications
+
 # Install runtimes and dependencies
 
   - name: Run Visual C++ 2008 Redistributable x86    
@@ -64,7 +71,17 @@
   - name: Run Visual C++ 2015 Redistributable x64    
     win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"    
 
-    
+  - name: Run Visual C++ 2015 Redistributable x64    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"  
+
+#  - name: run a command from a working directory   
+#    win_shell: cmd /c Install-VisualCRedist.CMD
+#    args:
+#      chdir: m:\applications\Microsoft Visual C++ 2015 Redistributable x64
+
+  - name: Reboot post dependency installations
+    win_reboot:
+
 # Install hosting platform tools
 
 #  - name: Install VMware Tools
@@ -96,6 +113,9 @@
       product_id: vda
       arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
       state: present
+
+  - name: Reboot post VDA installations
+    win_reboot:
 
 #  - name: Run a powershell command
 #    win_shell: |

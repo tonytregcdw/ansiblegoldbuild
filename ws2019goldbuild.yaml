@@ -4,7 +4,13 @@
     adds_fqdn: ttlab.local
     adds_admin_user: ttwinrm@ttlab.local 
     adds_admin_pass: Ansiblem@nage
-    appinstall_path: \\ttlab.local\applications
+    adds_ou_path: "OU=SessionHosts,OU=Citrix,OU=Infra,DC=ttlab,DC=local"
+    appinstall_path: \\WS2019ADDS01\applications
+    ansible_become: yes
+    ansible_become_method: runas
+    ansible_become_user: "{{ adds_admin_user }}"
+    ansible_become_password: "{{ adds_admin_pass }}"
+    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only    
     
   tasks:
 
@@ -26,11 +32,43 @@
       state: present
       include_management_tools: False
 
+  - name: Run Install Citrix VDA 7.15 LTSR CU4
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Citrix XenDesktop 7.15 CU4\Install-XenDesktop7xVDA-ServerMaster.cmd"    
+
+      
 # Install runtimes and dependencies
 
-  - name: Run Visual C++ 2005 Redistributable x86
-    win_shell: cmd /c "\\ttlab.local\applications\Microsoft Visual C++ 2005 Redistributable x86\Install-VisualCRedist.CMD"
+  - name: Run Visual C++ 2008 Redistributable x86    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x86\Install-VisualCRedist.CMD"
+    
+  - name: Run Visual C++ 2008 Redistributable x64   
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x64\Install-VisualCRedist.CMD"
 
+  - name: Run Visual C++ 2010 Redistributable x86
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x86\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2010 Redistributable x64    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x64\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2012 Redistributable x86
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x86\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2012 Redistributable x64    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x64\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2013 Redistributable x86
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2013 Redistributable x86\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2013 Redistributable x64    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2013 Redistributable x64\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2015 Redistributable x86
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"
+
+  - name: Run Visual C++ 2015 Redistributable x64    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"    
+
+    
 # Install hosting platform tools
 
 #  - name: Install VMware Tools
@@ -55,9 +93,10 @@
 
 # Citrix components
 
+
   - name: Install Citrix VDA
     win_package:
-      path: \\ttlab.local\applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
+      path: \\WS2019ADDS01\applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
       product_id: vda
       arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
       state: present

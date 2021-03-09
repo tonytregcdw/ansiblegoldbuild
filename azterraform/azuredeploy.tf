@@ -1,3 +1,8 @@
+#reference existing infrastructure network for ADDS and file share connectivity
+data "azurerm_virtual_network" "TT_Infrastructure_RG-vnet" {
+  name                 = "TT_Infrastructure_RG-vnet"
+  resource_group_name  = "TT_Infrastructure_RG"
+}
 #Resource Groups
 resource "azurerm_resource_group" "rg1" {
   name     = var.azure-rg-1

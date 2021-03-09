@@ -87,8 +87,8 @@
 
 # Citrix components
 
-#  - name: Run Install Citrix VDA 7.15 LTSR CU4
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Citrix XenDesktop 7.15 CU4\Install-XenDesktop7xVDA-ServerMaster.cmd"    
+#  - name: Run Install Citrix VDA
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Citrix XenDesktop 2012\Install-XenDesktopVDA-ServerMaster.cmd"    
 
   - name: Install Citrix VDA
     win_package:

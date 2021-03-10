@@ -32,11 +32,18 @@
       state: present
       include_management_tools: False
 
-  - name: Map drive to application installation source
+  - name: reboot pre-dependency installations
+    win_reboot:
+      
+  - name: map a drive to application installation source
     win_mapped_drive:
       letter: M
       path: \\WS2019ADDS01\applications
 
+#  - name: run a command from a working directory   
+#    win_shell: cmd /c Install-VisualCRedist.CMD
+#    args:
+#      chdir: m:\applications\Microsoft Visual C++ 2015 Redistributable x64
 # Install runtimes and dependencies
 
   - name: Run Visual C++ 2008 Redistributable x86    
@@ -69,13 +76,14 @@
   - name: Run Visual C++ 2015 Redistributable x64    
     win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"    
 
-  - name: Run Visual C++ 2015 Redistributable x64    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"  
+  - name: Run Visual C++ 2015 Redistributable x86   
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"  
 
-#  - name: run a command from a working directory   
-#    win_shell: cmd /c Install-VisualCRedist.CMD
-#    args:
-#      chdir: m:\applications\Microsoft Visual C++ 2015 Redistributable x64
+  - name: Run Visual C++ 2017 Redistributable x64    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2017 Redistributable x64\Install-VisualCRedist.CMD"    
+
+  - name: Run Visual C++ 2017 Redistributable x86    
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2017 Redistributable x86\Install-VisualCRedist.CMD"  
 
   - name: Reboot post dependency installations
     win_reboot:
@@ -102,15 +110,16 @@
 
 # Citrix components
 
-#  - name: Run Install Citrix VDA
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Citrix XenDesktop 2012\Install-XenDesktopVDA-ServerMaster.cmd"    
+  - name: Run Install Citrix VDA
+    win_shell: cmd /c "\\WS2019ADDS01\applications\Citrix XenDesktop 2012\Install-XenDesktopVDA-ServerMaster.cmd"    
 
-  - name: Install Citrix VDA
-    win_package:
-      path: \\WS2019ADDS01\applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
-      product_id: vda
-      arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
-      state: present
+#  - name: Install Citrix VDA
+#    win_package:
+#      path: \\WS2019ADDS01\applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
+#      product_id: '{C344C994-94D2-45EC-AD93-0EBBA1E9D5DD}'
+#      arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
+#      state: present
+#      log_path: c:\XenDesktopVDASetup.log
 
   - name: Reboot post VDA installations
     win_reboot:

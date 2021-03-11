@@ -39,9 +39,10 @@
 ### get WSL up and running on win10 with ubuntu.
 
 ### install the ansible module - this should also install pip, python3.
+```
   sudo apt update
-
   sudo apt install ansible
+```  
 
 ### check pip,python3,winrm installed.
 

@@ -91,7 +91,7 @@
 # Install hosting platform tools
 
 #  - name: Install VMware Tools
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\\VMware Tools 10.\Install-VMwareTools-x64.CMD"
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\VMware Tools 10.\Install-VMwareTools-x64.CMD"
 
 # OS Customisation
       
@@ -107,6 +107,18 @@
 #      name: hellod
 #      data: 1
 #      type: dword
+
+
+#  - name: Run a powershell command
+#    win_shell: |
+#      New-Item -Path C:\temp -ItemType Directory
+#      New-Item -Path C:\temp\ansible -ItemType Directory
+#      write-host hello-mate >> c:\temp\ansible\test.txt
+
+#  - name: Run a command under cmd
+#    win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
+#    args:
+#      executable: cmd.exe
 
 # Citrix components
 
@@ -124,14 +136,12 @@
   - name: Reboot post VDA installations
     win_reboot:
 
-#  - name: Run a powershell command
-#    win_shell: |
-#      New-Item -Path C:\temp -ItemType Directory
-#      New-Item -Path C:\temp\ansible -ItemType Directory
-#      write-host hello-mate >> c:\temp\ansible\test.txt
 
-#  - name: Run a command under cmd
-#    win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
-#    args:
-#      executable: cmd.exe
-      
+# Install applications
+
+  - name: Install notepad-plus-plus
+    win_package:
+      path: https://notepad-plus-plus.org/repository/7.x/7.0/npp.7.Installer.x64.exe
+      product_id: Notepad++
+      arguments: /S
+      state: present

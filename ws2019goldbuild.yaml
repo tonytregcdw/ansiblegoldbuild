@@ -14,6 +14,13 @@
     
   tasks:
 
+  - name: Set an environment variable for app installation path
+    win_environment:
+      state: present
+      name: appinstall
+      value: "{{ appinstall_path }}"
+      level: machine
+
   - name: join AD DS domain
     win_domain_membership:
       dns_domain_name: "{{ adds_fqdn }}"
@@ -22,7 +29,7 @@
       domain_ou_path: "{{ adds_ou_path }}"
       state: domain
     register: domain_state
-    
+
   - win_reboot:
     when: domain_state.reboot_required
 
@@ -35,64 +42,46 @@
   - name: reboot pre-dependency installations
     win_reboot:
       
-# Install runtimes and dependencies
-
 #  - name: map a drive to application installation source
 #    win_mapped_drive:
 #      letter: M
-#      path: \\WS2019ADDS01\applications
+#      path: "{{ appinstall_path }}"
 
-#  - name: run a command using a working directory   
-#    win_shell: cmd /c Install-VisualCRedist.CMD
-#    args:
-#      chdir: m:\applications\Microsoft Visual C++ 2015 Redistributable x64
 
-#  - name: Run Visual C++ 2008 Redistributable x86    
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x86\Install-VisualCRedist.CMD"
-    
-#  - name: Run Visual C++ 2008 Redistributable x64   
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x64\Install-VisualCRedist.CMD"
+# Install runtimes and dependencies
 
-#  - name: Run Visual C++ 2010 Redistributable x86
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x86\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2013 Redistributable x86
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2013 Redistributable x86\Install-VisualCRedist.CMD"
 
-#  - name: Run Visual C++ 2010 Redistributable x64    
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x64\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2013 Redistributable x64    
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2013 Redistributable x64\Install-VisualCRedist.CMD"
 
-#  - name: Run Visual C++ 2012 Redistributable x86
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x86\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2015 Redistributable x86
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"
 
-#  - name: Run Visual C++ 2012 Redistributable x64    
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x64\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2015 Redistributable x64    
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"    
 
-  - name: Run Visual C++ 2013 Redistributable x86
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2013 Redistributable x86\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2015 Redistributable x86
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"  
 
-  - name: Run Visual C++ 2013 Redistributable x64    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2013 Redistributable x64\Install-VisualCRedist.CMD"
+  - name: Run Microsoft .NET Framework 4.8
+    win_shell: cmd /c "$env:appinstall\Microsoft .NET Framework 4.8\Install-NetFramework.CMD"
 
-  - name: Run Visual C++ 2015 Redistributable x86
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"
-
-  - name: Run Visual C++ 2015 Redistributable x64    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"    
-
-  - name: Run Visual C++ 2015 Redistributable x86   
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"  
-
-  - name: Run Visual C++ 2017 Redistributable x64    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2017 Redistributable x64\Install-VisualCRedist.CMD"    
+  - name: Run Visual C++ 2017 Redistributable x64
+    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2017 Redistributable x64\Install-VisualCRedist.CMD"    
 
   - name: Run Visual C++ 2017 Redistributable x86    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2017 Redistributable x86\Install-VisualCRedist.CMD"  
+    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2017 Redistributable x86\Install-VisualCRedist.CMD"  
 
   - name: Reboot post dependency installations
     win_reboot:
 
+    
 # Install hosting platform tools
 
 #  - name: Install VMware Tools
-#    win_shell: cmd /c "\\WS2019ADDS01\applications\VMware Tools 10.\Install-VMwareTools-x64.CMD"
+#    win_shell: cmd /c "$env:appinstall\VMware Tools 10.\Install-VMwareTools-x64.CMD"
 
 # OS Customisation
       
@@ -109,8 +98,7 @@
 #      data: 1
 #      type: dword
 
-
-#  - name: Run a powershell command
+#  - name: Run a multiple powershell commands
 #    win_shell: |
 #      New-Item -Path C:\temp -ItemType Directory
 #      New-Item -Path C:\temp\ansible -ItemType Directory
@@ -121,24 +109,18 @@
 #    args:
 #      executable: cmd.exe
 
-# Citrix components
+
+# Install Citrix components
 
   - name: Run Install Citrix VDA
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Citrix XenDesktop 2012\Install-XenDesktopVDA-ServerMaster.cmd"    
+    win_shell: cmd /c "$env:appinstall\Citrix XenDesktop 2012\Install-XenDesktopVDA-ServerMaster.cmd"    
 
-#  - name: Install Citrix VDA
-#    win_package:
-#      path: \\WS2019ADDS01\applications\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopVDASetup.exe
-#      product_id: '{C344C994-94D2-45EC-AD93-0EBBA1E9D5DD}'
-#      arguments: /QUIET /NOREBOOT /COMPONENTS "VDA" /CONTROLLERS "ddc01.trickyjoe.local,ddc02.trickyjoe.local" /ENABLE_FRAMEHAWK_PORT /ENABLE_HDX_PORTS /ENABLE_REAL_TIME_TRANSPORT /ENABLE_REMOTE_ASSISTANCE /EXCLUDE "PERSONAL VDISK,CITRIX UNIVERSAL PRINT CLIENT" /MASTERIMAGE /OPTIMIZE
-#      state: present
-#      log_path: c:\XenDesktopVDASetup.log
-
-  - name: Reboot post VDA installations
+  - name: Reboot post VDA installation
     win_reboot:
 
-
+    
 # Install applications
+
 
   - name: Install notepad-plus-plus
     win_package:

@@ -9,7 +9,7 @@
   - As long as WINRM is visible, config can be remotely pushed to windows devices without any agents.  These devices can be hosted anywhere, eg: Azure, AWS, onpremise.
 
 - Existing infrastructure for AD DS and file shares.
-  - An SMB file share will host all the app installation media
+  - SMB file for all the app installation media.  This lab uses the standard EUC MDT build \applications\ folder.
   - Windows session hosts will be joined to an existing active directory domain
 
 - Session Host terraform provisioning.

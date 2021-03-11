@@ -1,18 +1,119 @@
 - hosts: azwin10
   gather_facts: false
+  vars:
+    adds_fqdn: ttlab.local
+    adds_admin_user: ttwinrm@ttlab.local 
+    adds_admin_pass: Ansiblem@nage
+    adds_ou_path: "OU=SessionHosts,OU=Citrix,OU=Infra,DC=ttlab,DC=local"
+    appinstall_path: \\WS2019ADDS01\applications
+    ansible_become: yes
+    ansible_become_method: runas
+    ansible_become_user: "{{ adds_admin_user }}"
+    ansible_become_password: "{{ adds_admin_pass }}"
+    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only    
     
   tasks:
 
-  - name: Run a powershell command
-    win_shell: |
-      New-Item -Path C:\temp -ItemType Directory
-      New-Item -Path C:\temp\ansible -ItemType Directory
-      write-host hello-mate >> c:\temp\ansible\test.txt
+  - name: Set an environment variable for app installation path
+    win_environment:
+      state: present
+      name: appinstall
+      value: "{{ appinstall_path }}"
+      level: machine
 
-  - name: Run a command under cmd
-    win_shell: echo ansible test >> C:\temp\test.txt && echo still here >> c:\temp\test.txt
-    args:
-      executable: cmd.exe
+  - name: join AD DS domain
+    win_domain_membership:
+      dns_domain_name: "{{ adds_fqdn }}"
+      domain_admin_user: "{{ adds_admin_user }}"
+      domain_admin_password: "{{ adds_admin_pass }}"
+      domain_ou_path: "{{ adds_ou_path }}"
+      state: domain
+    register: domain_state
+
+  - win_reboot:
+    when: domain_state.reboot_required
+
+  - name: reboot pre-dependency installations
+    win_reboot:
+      
+#  - name: map a drive to application installation source
+#    win_mapped_drive:
+#      letter: M
+#      path: "{{ appinstall_path }}"
+
+
+# Install runtimes and dependencies
+
+#  - name: Run Visual C++ 2013 Redistributable x86
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2013 Redistributable x86\Install-VisualCRedist.CMD"
+
+#  - name: Run Visual C++ 2013 Redistributable x64    
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2013 Redistributable x64\Install-VisualCRedist.CMD"
+
+#  - name: Run Visual C++ 2015 Redistributable x86
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"
+
+#  - name: Run Visual C++ 2015 Redistributable x64    
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2015 Redistributable x64\Install-VisualCRedist.CMD"    
+
+#  - name: Run Visual C++ 2015 Redistributable x86
+#    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2015 Redistributable x86\Install-VisualCRedist.CMD"  
+
+  - name: Run Microsoft .NET Framework 4.8
+    win_shell: cmd /c "$env:appinstall\Microsoft .NET Framework 4.8\Install-NetFramework.CMD"
+
+  - name: Run Visual C++ 2017 Redistributable x64
+    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2017 Redistributable x64\Install-VisualCRedist.CMD"    
+
+  - name: Run Visual C++ 2017 Redistributable x86    
+    win_shell: cmd /c "$env:appinstall\Microsoft Visual C++ 2017 Redistributable x86\Install-VisualCRedist.CMD"  
+
+  - name: Reboot post dependency installations
+    win_reboot:
+
+    
+# Install hosting platform tools
+
+#  - name: Install VMware Tools
+#    win_shell: cmd /c "$env:appinstall\VMware Tools 10.\Install-VMwareTools-x64.CMD"
+
+# OS Customisation
+      
+#  - name: reg key example
+#    win_regedit:
+#      path: HKLM:\Software\TTLAB
+#      name: hello
+#      data: world
+      
+#  - name: dword reg key example
+#    win_regedit:
+#      path: HKLM:\Software\TTLAB
+#      name: hellod
+#      data: 1
+#      type: dword
+
+#  - name: Run a multiple powershell commands
+#    win_shell: |
+#      New-Item -Path C:\temp -ItemType Directory
+#      New-Item -Path C:\temp\ansible -ItemType Directory
+#      write-host hello >> c:\temp\ansible\test.txt
+
+#  - name: Run a command under cmd
+#    win_shell: echo ansible test >> C:\temp\test.txt && echo another test >> c:\temp\test.txt
+#    args:
+#      executable: cmd.exe
+
+
+# Install Citrix components
+
+  - name: Run Install Citrix VDA
+    win_shell: cmd /c "$env:appinstall\Citrix XenDesktop 2012\Install-XenDesktop7xVDA-DesktopMaster.cmd"    
+
+  - name: Reboot post VDA installation
+    win_reboot:
+
+    
+# Install applications
 
   - name: Install notepad-plus-plus
     win_package:
@@ -20,28 +121,3 @@
       product_id: Notepad++
       arguments: /S
       state: present
-      
-  - name: reg key
-    win_regedit:
-      path: HKLM:\Software\TTLAB
-      name: hello
-      data: world
-      
-  - name: dword reg key
-    win_regedit:
-      path: HKLM:\Software\TTLAB
-      name: hellod
-      data: 1
-      type: dword
-  
-#  - name: join Azure AD DS domain
-#    win_domain_membership:
-#      dns_domain_name: "{{ adds_fqdn }}"
-#      domain_admin_user: "{{ adds_admin_user }}"
-#      domain_admin_password: "{{ adds_admin_pass }}"
-#      state: domain
-#    register: domain_state
-    
-#  - win_reboot:
-#    when: domain_state.reboot_required
-  

@@ -46,23 +46,23 @@
 #      chdir: m:\applications\Microsoft Visual C++ 2015 Redistributable x64
 # Install runtimes and dependencies
 
-  - name: Run Visual C++ 2008 Redistributable x86    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x86\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2008 Redistributable x86    
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x86\Install-VisualCRedist.CMD"
     
-  - name: Run Visual C++ 2008 Redistributable x64   
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x64\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2008 Redistributable x64   
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2008 Redistributable x64\Install-VisualCRedist.CMD"
 
-  - name: Run Visual C++ 2010 Redistributable x86
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x86\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2010 Redistributable x86
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x86\Install-VisualCRedist.CMD"
 
-  - name: Run Visual C++ 2010 Redistributable x64    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x64\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2010 Redistributable x64    
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2010 Redistributable x64\Install-VisualCRedist.CMD"
 
-  - name: Run Visual C++ 2012 Redistributable x86
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x86\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2012 Redistributable x86
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x86\Install-VisualCRedist.CMD"
 
-  - name: Run Visual C++ 2012 Redistributable x64    
-    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x64\Install-VisualCRedist.CMD"
+#  - name: Run Visual C++ 2012 Redistributable x64    
+#    win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2012 Redistributable x64\Install-VisualCRedist.CMD"
 
   - name: Run Visual C++ 2013 Redistributable x86
     win_shell: cmd /c "\\WS2019ADDS01\applications\Microsoft Visual C++ 2013 Redistributable x86\Install-VisualCRedist.CMD"

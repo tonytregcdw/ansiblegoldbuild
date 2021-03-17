@@ -38,19 +38,19 @@
 
 ### get WSL up and running with ubuntu.
 ```
-    #Enable WSL
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-    #obtain ubuntu distro
-    curl.exe -L -o ubuntu-1804.appx https://aka.ms/wsl-ubuntu-1804
-    Rename-Item ubuntu-1804.appx ubuntu-1804.zip
-    Expand-Archive ubuntu-1804.zip ubuntu1804
-    #install
-    .\ubuntu1804\ubuntu1804.exe
+#Enable WSL
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+#obtain ubuntu distro
+curl.exe -L -o ubuntu-1804.appx https://aka.ms/wsl-ubuntu-1804
+Rename-Item ubuntu-1804.appx ubuntu-1804.zip
+Expand-Archive ubuntu-1804.zip ubuntu1804
+#install
+.\ubuntu1804\ubuntu1804.exe
 ```
 ### install the ansible module - this should also install pip, python3.
 ```
-  sudo apt update
-  sudo apt install ansible
+sudo apt update
+sudo apt install ansible
 ```  
 
 ### check pip,python3,winrm installed.

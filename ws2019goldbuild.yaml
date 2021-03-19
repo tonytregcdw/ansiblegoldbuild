@@ -98,11 +98,21 @@
 
   - name: Run Install Citrix VDA
     win_shell: cmd /c "$env:appinstall\Citrix XenDesktop 2012\Install-XenDesktopVDA-ServerMaster.cmd"    
-
+    args:
+      creates: C:\Program Files\Citrix\Virtual Desktop Agent\BrokerAgent.exe
+      
   - name: Reboot post VDA installation
     win_reboot:
 
-    
+  - name: Run Install Workspace App
+    win_shell: cmd /c "$env:appinstall\Citrix_Workspace_App\install-CitrixWorkspaceApp.cmd"    
+    args:
+      creates: C:\Program Files (x86)\Citrix\ICA Client\wfcrun32.exe
+
+  - name: Run Citrix Optimiser script
+    win_shell: cmd /c "$env:appinstall\Script Citrix Optimizer\citrixoptimizer.cmd"    
+
+      
 # Install applications
 
   - name: Include applications playbook

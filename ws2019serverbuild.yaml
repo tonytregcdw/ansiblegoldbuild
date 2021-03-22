@@ -38,12 +38,27 @@
       name: RSAT-Role-Tools
       state: present
 
-  - name: install admin tools
+  - name: install gpmc
     win_feature:
       name: GPMC
       state: present
+
+  - name: install net framework core
+    win_feature:
+      name: NET-Framework-45-Core
+      state: present
+
+  - name: Windows Process Activation Service (WAS)
+    win_feature:
+      name: WAS
+      state: present
+
+  - name: install chocolately
+    win_shell: iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    args:
+      creates: C:\ProgramData\chocolatey\bin\choco.exe
       
-       
+ 
 # Deploy WSL Ubuntu 1804 on WS2019
 
   - name: enable WSL
@@ -53,19 +68,25 @@
 
   - name: Reboot post WSL enable
     win_reboot:
-           
+
+  - name: Run command that only runs if a specified folder doesnt exist
+    win_shell: mkdir c:\ansible
+    args:
+      creates: C:\ansible\    
+  
   - name: Download Ubuntu for WSL
-    win_shell:
+    win_shell: |
       curl.exe -L -o ubuntu-1804.appx https://aka.ms/wsl-ubuntu-1804
       Rename-Item ubuntu-1804.appx ubuntu-1804.zip
       Expand-Archive ubuntu-1804.zip ubuntu1804
- 
-      
+    args:
+      chdir: C:\ansible\
+      creates: C:\ansible\ubuntu-1804.zip
+
 #  - name: map a drive to application installation source
 #    win_mapped_drive:
 #      letter: M
 #      path: "{{ appinstall_path }}"
-
 
   - name: Reboot post dependency installations
     win_reboot:
@@ -115,4 +136,21 @@
 
 
  
-   
+# Install Citrix Storefront
+
+#  - name: install IIS
+#    win_feature:
+#      name: Web-Default-Doc,Web-Http-Errors,Web-Static-Content,Web-Http-Redirect,Web-Http-Logging,Web-Filtering,Web-Basic-Auth,Web-Windows-Auth,Web-Net-Ext45,Web-AppInit,Web-Asp-Net45,Web-ISAPI-Ext,Web-ISAPI-Filter,Web-Mgmt-Console,Web-Scripting-Tools,NET-Framework-45-ASPNET
+#      state: present
+
+#  - name: Reboot IIS install reboot
+#    win_reboot:
+           
+#  - name: Install Citrix storefront
+#    win_shell: cmd /c "$env:appinstall\Citrix XenDesktop 2012\x64\Storefront\CitrixStoreFront-x64.exe" -silent
+
+# Install Citrix DDC
+
+  - name: Install Citrix DDC
+    win_shell: cmd /c "$env:appinstall\Citrix XenDesktop 2012\x64\XenDesktop Setup\XenDesktopServerSetup.exe" /components controller,desktopstudio /configure_firewall /nosql /noreboot /quiet
+

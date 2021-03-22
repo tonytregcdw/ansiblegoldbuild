@@ -1,0 +1,38 @@
+- hosts: localhost
+
+  tasks:
+    - name: Power on master image
+      vmware_guest_powerstate:
+        hostname: 192.168.1.100
+        username: administrator@vsphere.local
+        password: passwd
+        folder: Gold Master
+        state: powered-off
+        validate_certs: no
+
+    - name:
+      pause:
+        minutes: 1
+
+- hosts: goldmaster
+  vars:
+    adds_fqdn: ttlab.local
+    adds_admin_user: ttwinrm@ttlab.local 
+    adds_admin_pass: Ansiblem@nage
+    adds_ou_path: "OU=SessionHosts,OU=Citrix,OU=Infra,DC=ttlab,DC=local"
+    appinstall_path: \\WS2019ADDS01\applications
+    ansible_become: yes
+    ansible_become_method: runas
+    ansible_become_user: "{{ adds_admin_user }}"
+    ansible_become_password: "{{ adds_admin_pass }}"
+    ansible_become_flags: logon_type=new_credentials logon_flags=netcredentials_only 
+    
+  tasks:
+  
+    - name: install an app
+      win_shell: app.cmd
+      
+    - name: Run sealing script
+      win_shell: sealingscript.cmd
+
+#shutdown image.

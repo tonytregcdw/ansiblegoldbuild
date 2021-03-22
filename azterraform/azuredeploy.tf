@@ -114,7 +114,7 @@ resource "azurerm_subnet_network_security_group_association" "vnet1-snet1" {
 resource "random_id" "kvname" {
   byte_length = 5
   prefix = "keyvault"
-  override_special = "_%@!+"
+  override_special = "_%$!+"
 }
 #Keyvault Creation
 data "azurerm_client_config" "current" {}

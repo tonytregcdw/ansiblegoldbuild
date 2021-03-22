@@ -118,4 +118,3 @@
   - name: Include applications playbook
     include: coreapplicationset.yaml
 
-

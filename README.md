@@ -65,7 +65,7 @@ pip install requests-credssp
 
 ```
 ansible-galaxy collection install azure.azcollection
-sudo pip3 isntall -r /root/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
+sudo pip3 install -r /root/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
 ```
 
 ## Configure ansible managed endpoints

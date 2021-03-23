@@ -61,6 +61,13 @@ sudo apt install ansible
 pip install requests-credssp
 ```
 
+### Configure ansible for Azure RM support
+
+```
+ansible-galaxy collection install azure.azcollection
+sudo pip3 isntall -r /root/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
+```
+
 ## Configure ansible managed endpoints
 
 ### Set up winrm on the windows ansible hosts

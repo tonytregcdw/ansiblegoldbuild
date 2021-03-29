@@ -55,10 +55,14 @@ sudo apt install ansible
 
 ### check pip,python3,winrm installed.
 
+```
+pip3 install pywinrm
+```
+
 ### Configure ansible for credssp support
 
 ```
-pip install requests-credssp
+pip3 install requests-credssp
 ```
 
 ## Configure ansible managed endpoints

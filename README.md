@@ -47,7 +47,7 @@ Expand-Archive ubuntu-1804.zip ubuntu1804
 #install
 .\ubuntu1804\ubuntu1804.exe
 ```
-### install the ansible module - this should also install pip, python3.
+### install the ansible module
 ```
 sudo apt update
 sudo apt install ansible
@@ -59,13 +59,6 @@ sudo apt install ansible
 
 ```
 pip install requests-credssp
-```
-
-### Configure ansible for Azure RM support
-
-```
-ansible-galaxy collection install azure.azcollection
-sudo pip3 install -r /root/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
 ```
 
 ## Configure ansible managed endpoints
